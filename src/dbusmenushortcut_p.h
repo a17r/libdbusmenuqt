@@ -25,13 +25,9 @@
 #include <QtCore/QMetaType>
 #include <QtCore/QStringList>
 
-// Local
-#include <dbusmenu_export.h>
-
-
 class QKeySequence;
 
-class DBUSMENU_EXPORT DBusMenuShortcut : public QList<QStringList>
+class DBusMenuShortcut : public QList<QStringList>
 {
 public:
     QKeySequence toKeySequence() const;

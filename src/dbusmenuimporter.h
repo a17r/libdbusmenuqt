@@ -24,9 +24,6 @@
 // Qt
 #include <QtCore/QObject>
 
-// Local
-#include <dbusmenu_export.h>
-
 class QAction;
 class QDBusAbstractInterface;
 class QDBusPendingCallWatcher;
@@ -37,19 +34,10 @@ class QMenu;
 class DBusMenuImporterPrivate;
 
 /**
- * Determine whether internal method calls should allow the Qt event loop
- * to execute or not
- */
-enum DBusMenuImporterType {
-    ASYNCHRONOUS,
-    SYNCHRONOUS
-};
-
-/**
  * A DBusMenuImporter instance can recreate a menu serialized over DBus by
  * DBusMenuExporter
  */
-class DBUSMENU_EXPORT DBusMenuImporter : public QObject
+class DBusMenuImporter : public QObject
 {
     Q_OBJECT
 public:
@@ -57,12 +45,6 @@ public:
      * Creates a DBusMenuImporter listening over DBus on service, path
      */
     DBusMenuImporter(const QString &service, const QString &path, QObject *parent = 0);
-
-    /**
-     * Creates a DBusMenuImporter listening over DBus on service, path, with either async
-     * or sync DBus calls
-     */
-    DBusMenuImporter(const QString &service, const QString &path, DBusMenuImporterType type, QObject *parent = 0);
 
     virtual ~DBusMenuImporter();
 
@@ -73,17 +55,10 @@ public:
 
 public Q_SLOTS:
     /**
-     * Simulates a QMenu::aboutToShow() signal on the menu returned by menu(),
-     * ensuring it is up to date in case the menu is populated on the fly. It
-     * is not mandatory to call this method, showing the menu with
-     * QMenu::popup() or QMenu::exec() will generates an aboutToShow() signal,
-     * but calling it before ensures the size-hint of the menu is correct when
-     * it is time to show it, avoiding wrong positioning.
+     * Load the menu
      *
-     * menuUpdated() will be emitted when the menu is ready.
-     *
-     * Not that the aboutToShow() signal is only sent to the root menu, not to
-     * any submenu.
+     * Will emit menuUpdated() when complete.
+     * This should be done before showing a menu
      */
     void updateMenu();
 
@@ -93,15 +68,6 @@ Q_SIGNALS:
      * @see updateMenu()
      */
     void menuUpdated();
-
-    /**
-     * Emitted after every aboutToShow of the root menu.
-     * This signal is deprecated and only kept to keep compatibility with
-     * dbusmenu-qt 0.3.x. New code should use updateMenu() and menuUpdated()
-     *
-     * @deprecated
-     */
-    void menuReadyToBeShown();
 
     /**
      * Emitted when the exporter was asked to activate an action

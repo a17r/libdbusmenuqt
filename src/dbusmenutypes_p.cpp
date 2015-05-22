@@ -21,8 +21,7 @@
 #include "dbusmenutypes_p.h"
 
 // Local
-#include <dbusmenushortcut_p.h>
-#include <debug_p.h>
+#include "dbusmenushortcut_p.h"
 
 // Qt
 #include <QDBusArgument>

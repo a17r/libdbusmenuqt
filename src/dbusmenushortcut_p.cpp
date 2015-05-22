@@ -23,9 +23,6 @@
 // Qt
 #include <QtGui/QKeySequence>
 
-// Local
-#include "debug_p.h"
-
 static const int QT_COLUMN = 0;
 static const int DM_COLUMN = 1;
 
