@@ -120,5 +120,9 @@ target_link_libraries(dbusmenushortcuttest
     ${test_LIBRARIES}
     )
 
+add_executable(appmenutest main.cpp)
+target_link_libraries(appmenutest
+                        Qt5::Widgets)
+
 # Keep this at the end
 create_check_target()
