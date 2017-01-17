@@ -59,6 +59,13 @@ set(dbusmenu_qt_SRCS
     utils.cpp
     )
 
+set_source_files_properties(com.canonical.dbusmenu.xml PROPERTIES
+   NO_NAMESPACE true
+   INCLUDE "dbusmenutypes_p.h"
+   CLASSNAME DBusMenuInterface
+)
+qt5_add_dbus_interface(dbusmenu_qt_SRCS com.canonical.dbusmenu.xml dbusmenu_interface)
+
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_BINARY_DIR}/src
