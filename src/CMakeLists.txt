@@ -59,6 +59,11 @@ set(dbusmenu_qt_SRCS
     utils.cpp
     )
 
+ecm_qt_declare_logging_category(dbusmenu_qt_SRCS HEADER debug.h
+                                            IDENTIFIER DBUSMENUQT
+                                            CATEGORY_NAME org.kde.libdbusmenuqt
+                                            DEFAULT_SEVERITY Info)
+
 set_source_files_properties(com.canonical.dbusmenu.xml PROPERTIES
    NO_NAMESPACE true
    INCLUDE "dbusmenutypes_p.h"
