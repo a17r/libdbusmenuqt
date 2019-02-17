@@ -52,26 +52,6 @@ include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_INCLUDEDIR}/dbusmenu-${QT_SUFFIX}")
 
-# dist targets
-set(ARCHIVE_NAME libdbusmenu-${QT_SUFFIX}-${dbusmenu_qt_VERSION})
-add_custom_target(dist
-    COMMAND bzr export --root=${ARCHIVE_NAME} ${CMAKE_BINARY_DIR}/${ARCHIVE_NAME}.tar.bz2
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-
-add_custom_target(distcheck
-    COMMAND cd ${CMAKE_BINARY_DIR}
-    && rm -rf ${ARCHIVE_NAME}
-    && tar xf ${ARCHIVE_NAME}.tar.bz2
-    && mkdir ${ARCHIVE_NAME}/build
-    && cd ${ARCHIVE_NAME}/build
-    && cmake -DCMAKE_INSTALL_PREFIX=../install ..
-    && make
-    && make install
-    && make check
-    )
-add_dependencies(distcheck dist)
-
 configure_file(dbusmenu-qt.pc.in ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}.pc @ONLY)
 
 install(FILES ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}.pc
