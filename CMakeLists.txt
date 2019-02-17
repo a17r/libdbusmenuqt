@@ -24,28 +24,13 @@ set(dbusmenu_qt_lib_PATCH_VERSION 0)
 
 set(dbusmenu_qt_lib_VERSION ${dbusmenu_qt_lib_SOVERSION}.${dbusmenu_qt_lib_API_VERSION}.${dbusmenu_qt_lib_PATCH_VERSION})
 
-# Detect for which Qt version we're building
-if (NOT USE_QT4)
-    find_package(Qt5Widgets REQUIRED)
-    find_package(Qt5DBus REQUIRED)
-    include_directories(${Qt5Widgets_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS})
-    find_package(Qt5Core REQUIRED)
-    set(CMAKE_AUTOMOC ON)
-    set(CMAKE_AUTOMOC_RELAXED_MODE ON)
-    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+find_package(Qt5 CONFIG REQUIRED Core DBus Gui Widgets)
+include_directories(${Qt5Widgets_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS})
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOMOC_RELAXED_MODE ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-    set(QT_SUFFIX "qt5")
-else()
-    find_package(Qt4 REQUIRED)
-    include_directories(
-      ${QT_INCLUDE_DIR}
-      ${QT_QTCORE_INCLUDE_DIR}
-      ${QT_QTDBUS_INCLUDE_DIR}
-      ${QT_QTGUI_INCLUDE_DIR}
-      )
-
-    set(QT_SUFFIX "qt")
-endif()
+set(QT_SUFFIX "qt5")
 
 include (CheckCXXCompilerFlag)
 # Check some compiler flags
@@ -96,7 +81,7 @@ install(FILES ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}.pc
 
 add_subdirectory(src)
 add_subdirectory(tests)
-add_subdirectory(tools)
+# add_subdirectory(tools) # FindQJSON is not a thing with Qt5
 
 if(WITH_DOC)
     configure_file(Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
