@@ -1,9 +1,9 @@
-if (NOT USE_QT5)
+if (USE_QT4)
     qt4_automoc(slowmenu.cpp)
 endif()
 add_executable(slowmenu slowmenu.cpp)
 
-if (NOT USE_QT5)
+if (USE_QT4)
     target_link_libraries(slowmenu
         ${QT_QTGUI_LIBRARIES}
         ${QT_QTDBUS_LIBRARIES}
@@ -77,7 +77,7 @@ set(dbusmenuexportertest_SRCS
     testutils.cpp
     )
 
-if (NOT USE_QT5)
+if (USE_QT4)
     qt4_automoc(${dbusmenuexportertest_SRCS})
 endif()
 
@@ -94,7 +94,7 @@ set(dbusmenuimportertest_SRCS
     testutils.cpp
     )
 
-if (NOT USE_QT5)
+if (USE_QT4)
     qt4_automoc(${dbusmenuimportertest_SRCS})
 endif()
 
@@ -110,7 +110,7 @@ set(dbusmenushortcuttest_SRCS
     dbusmenushortcuttest.cpp
     )
 
-if (NOT USE_QT5)
+if (USE_QT4)
     qt4_automoc(${dbusmenushortcuttest_SRCS})
 endif()
 

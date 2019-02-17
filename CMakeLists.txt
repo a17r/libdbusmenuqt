@@ -24,18 +24,8 @@ set(dbusmenu_qt_lib_PATCH_VERSION 0)
 
 set(dbusmenu_qt_lib_VERSION ${dbusmenu_qt_lib_SOVERSION}.${dbusmenu_qt_lib_API_VERSION}.${dbusmenu_qt_lib_PATCH_VERSION})
 
-# Check if we want to explicitly select the Qt version to be used or autodetect
-if (NOT USE_QT4 AND NOT USE_QT5)
-    # Autodetect, prefering Qt5
-    message(STATUS "Autodetecting Qt version to use")
-    find_package(Qt5Widgets QUIET)
-    if (Qt5Widgets_FOUND)
-        set(USE_QT5 TRUE)
-    endif()
-endif()
-
 # Detect for which Qt version we're building
-if (USE_QT5)
+if (NOT USE_QT4)
     find_package(Qt5Widgets REQUIRED)
     find_package(Qt5DBus REQUIRED)
     include_directories(${Qt5Widgets_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS})
@@ -76,9 +66,7 @@ endif (__DBUSMENU_HAVE_CXX11)
 
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
-set(LIB_DESTINATION "${CMAKE_INSTALL_LIBDIR}")
-set(CMAKECONFIG_INSTALL_DIR "${LIB_DESTINATION}/cmake/dbusmenu-${QT_SUFFIX}")
-set(INCLUDE_INSTALL_DIR "include/dbusmenu-${QT_SUFFIX}")
+set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_INCLUDEDIR}/dbusmenu-${QT_SUFFIX}")
 
 # dist targets
 set(ARCHIVE_NAME libdbusmenu-${QT_SUFFIX}-${dbusmenu_qt_VERSION})
@@ -103,7 +91,7 @@ add_dependencies(distcheck dist)
 configure_file(dbusmenu-qt.pc.in ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}.pc @ONLY)
 
 install(FILES ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}.pc
-        DESTINATION ${LIB_DESTINATION}/pkgconfig
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
     )
 
 add_subdirectory(src)
@@ -118,7 +106,7 @@ if(WITH_DOC)
         )
 
     install(DIRECTORY ${CMAKE_BINARY_DIR}/html/
-        DESTINATION share/doc/libdbusmenu-${QT_SUFFIX}-doc
+        DESTINATION ${CMAKE_INSTALL_DOCDIR}
         )
 endif(WITH_DOC)
 
@@ -126,7 +114,7 @@ endif(WITH_DOC)
 configure_package_config_file(
     dbusmenu-qt-config.cmake.in
     ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}-config.cmake
-    INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/dbusmenu-${QT_SUFFIX}
     PATH_VARS INCLUDE_INSTALL_DIR
     )
 
@@ -140,6 +128,6 @@ write_basic_package_version_file(
 install(FILES
     ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}-config.cmake
     ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}-config-version.cmake
-    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/dbusmenu-${QT_SUFFIX}"
     COMPONENT Devel
     )

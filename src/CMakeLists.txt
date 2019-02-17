@@ -29,7 +29,7 @@ endif (__DBUSMENU_HAVE_CXX11)
 # Check whether QIcon::name() exists. It was added in late Qt 4.7 cycle, and is
 # not present in betas.
 
-if (NOT USE_QT5)
+if (USE_QT4)
     set(CMAKE_REQUIRED_INCLUDES "${QT_INCLUDE_DIR}")
     set(CMAKE_REQUIRED_LIBRARIES "${QT_QTGUI_LIBRARIES};${QT_QTCORE_LIBRARIES}")
 else()
@@ -76,7 +76,7 @@ include_directories(
     ${CMAKE_BINARY_DIR}/src
     )
 
-if (NOT USE_QT5)
+if (USE_QT4)
     qt4_automoc(${dbusmenu_qt_SRCS})
     qt4_add_dbus_adaptor(dbusmenu_qt_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/com.canonical.dbusmenu.xml
@@ -100,7 +100,7 @@ set_target_properties(dbusmenu-${QT_SUFFIX} PROPERTIES
     )
 
 
-if (NOT USE_QT5)
+if (USE_QT4)
     target_link_libraries(dbusmenu-${QT_SUFFIX}
         ${QT_QTGUI_LIBRARIES}
         ${QT_QTDBUS_LIBRARIES}
@@ -117,23 +117,23 @@ endif()
 
 # Make sure linking to the target adds dbusmenu-qt install directory
 target_include_directories(dbusmenu-${QT_SUFFIX}
-    INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>")
+    INTERFACE "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/dbusmenu-${QT_SUFFIX}>")
 
 install(TARGETS dbusmenu-${QT_SUFFIX}
     EXPORT dbusmenu-${QT_SUFFIX}-targets
-    LIBRARY DESTINATION ${LIB_DESTINATION}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION bin
     )
 
 install(EXPORT dbusmenu-${QT_SUFFIX}-targets
-    DESTINATION ${CMAKECONFIG_INSTALL_DIR})
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/dbusmenu-${QT_SUFFIX})
 
 install(DIRECTORY .
-    DESTINATION ${INCLUDE_INSTALL_DIR}
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/dbusmenu-${QT_SUFFIX}
     FILES_MATCHING PATTERN "*.h"
     PATTERN "*_p.h" EXCLUDE
     )
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/dbusmenu_version.h
-    DESTINATION ${INCLUDE_INSTALL_DIR}
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/dbusmenu-${QT_SUFFIX}
     )
