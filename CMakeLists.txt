@@ -1,9 +1,6 @@
 project(dbusmenu-qt)
 cmake_minimum_required(VERSION 2.8.11)
 
-# Build options
-option(WITH_DOC "Build documentation (requires Doxygen)" ON)
-
 # Versions
 ## Package version
 set(dbusmenu_qt_VERSION_MAJOR 0)
@@ -23,13 +20,23 @@ set(dbusmenu_qt_lib_PATCH_VERSION 0)
 
 set(dbusmenu_qt_lib_VERSION ${dbusmenu_qt_lib_SOVERSION}.${dbusmenu_qt_lib_API_VERSION}.${dbusmenu_qt_lib_PATCH_VERSION})
 
-find_package(Qt5 CONFIG REQUIRED Core DBus Gui Widgets)
+set(QT_MIN_VERSION "5.9.0")
+set(KF5_MIN_VERSION "5.25.0")
+
+find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Core DBus Gui Widgets)
 include_directories(${Qt5Widgets_INCLUDE_DIRS} ${Qt5DBus_INCLUDE_DIRS})
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOMOC_RELAXED_MODE ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(QT_SUFFIX "qt5")
+
+find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+
+include(CMakePackageConfigHelpers)
+include(GNUInstallDirs)
+include(ECMQtDeclareLoggingCategory)
 
 include (CheckCXXCompilerFlag)
 # Check some compiler flags
@@ -48,8 +55,6 @@ if (__DBUSMENU_HAVE_CXX11)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif (__DBUSMENU_HAVE_CXX11)
 
-include(CMakePackageConfigHelpers)
-include(GNUInstallDirs)
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_INCLUDEDIR}/dbusmenu-${QT_SUFFIX}")
 
 configure_file(dbusmenu-qt.pc.in ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}.pc @ONLY)
@@ -59,10 +64,14 @@ install(FILES ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}.pc
     )
 
 add_subdirectory(src)
-add_subdirectory(tests)
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
 # add_subdirectory(tools) # FindQJSON is not a thing with Qt5
 
-if(WITH_DOC)
+find_package(Doxygen)
+
+if(Doxygen_FOUND)
     configure_file(Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
 
     add_custom_target(doc ALL doxygen
@@ -72,7 +81,7 @@ if(WITH_DOC)
     install(DIRECTORY ${CMAKE_BINARY_DIR}/html/
         DESTINATION ${CMAKE_INSTALL_DOCDIR}
         )
-endif(WITH_DOC)
+endif()
 
 # Generate dbusmenu-qt-config* files
 configure_package_config_file(
