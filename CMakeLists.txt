@@ -65,14 +65,9 @@ find_package(Doxygen)
 
 if(Doxygen_FOUND)
     configure_file(Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
-
-    add_custom_target(doc ALL doxygen
+    add_custom_target(doc ${DOXYGEN_EXECUTABLE}
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        )
-
-    install(DIRECTORY ${CMAKE_BINARY_DIR}/html/
-        DESTINATION ${CMAKE_INSTALL_DOCDIR}
-        )
+        COMMENT "Generating API documentation with Doxygen" VERBATIM)
 endif()
 
 # Generate dbusmenu-qt-config* files
