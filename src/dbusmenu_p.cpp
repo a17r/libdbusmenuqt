@@ -28,7 +28,6 @@
 // Local
 #include "dbusmenuexporter.h"
 #include "dbusmenuexporterprivate_p.h"
-#include "debug_p.h"
 
 DBusMenu::DBusMenu(QMenu *menu, DBusMenuExporter *exporter, int parentId)
 : QObject(menu)
@@ -90,5 +89,3 @@ void DBusMenu::deleteMe()
 {
     delete this;
 }
-
-#include "dbusmenu_p.moc"

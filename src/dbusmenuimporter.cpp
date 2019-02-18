@@ -20,8 +20,6 @@
 */
 #include "dbusmenuimporter.h"
 
-#include "debug.h"
-
 // Qt
 #include <QCoreApplication>
 #include <QDBusConnection>
@@ -36,12 +34,12 @@
 #include <QToolButton>
 #include <QWidgetAction>
 #include <QSet>
-#include <QDebug>
 
 // Local
 #include "dbusmenutypes_p.h"
 #include "dbusmenushortcut_p.h"
 #include "utils_p.h"
+#include "debug_p.h"
 
 // Generated
 #include "dbusmenu_interface.h"
@@ -50,11 +48,6 @@
 #ifdef BENCHMARK
 static QTime sChrono;
 #endif
-
-#define DMRETURN_IF_FAIL(cond) if (!(cond)) { \
-    qCWarning(DBUSMENUQT) << "Condition failed: " #cond; \
-    return; \
-}
 
 static const char *DBUSMENU_PROPERTY_ID = "_dbusmenu_id";
 static const char *DBUSMENU_PROPERTY_ICON_NAME = "_dbusmenu_icon_name";
@@ -546,4 +539,5 @@ QIcon DBusMenuImporter::iconForName(const QString &/*name*/)
     return QIcon();
 }
 
+#include "dbusmenuimporter.moc"
 #include "moc_dbusmenuimporter.cpp"

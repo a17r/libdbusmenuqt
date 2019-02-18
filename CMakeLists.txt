@@ -31,6 +31,14 @@ set(QT_SUFFIX "qt5")
 find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
+if(NOT CMAKE_VERSION VERSION_LESS "3.10.0")
+    # CMake 3.9+ warns about automoc on files without Q_OBJECT, and doesn't know about other macros.
+    # 3.10+ lets us provide more macro names that require automoc.
+    # Remove this when depending on a Frameworks or ECM version that solves this upstream.
+    list(APPEND CMAKE_AUTOMOC_MACRO_NAMES
+        "DMRETURN_IF_FAIL" "DMRETURN_VALUE_IF_FAIL")
+endif()
+
 set(KDE_SKIP_RPATH_SETTINGS ON)
 
 include(GNUInstallDirs)
