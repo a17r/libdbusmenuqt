@@ -1,4 +1,3 @@
-include(CheckCXXSourceCompiles)
 
 check_cxx_compiler_flag(-Wall __DBUSMENU_HAVE_W_ALL)
 if (__DBUSMENU_HAVE_W_ALL)
@@ -25,25 +24,6 @@ check_cxx_compiler_flag(-std=c++11 __DBUSMENU_HAVE_CXX11)
 if (__DBUSMENU_HAVE_CXX11)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif (__DBUSMENU_HAVE_CXX11)
-
-# Check whether QIcon::name() exists. It was added in late Qt 4.7 cycle, and is
-# not present in betas.
-
-set(CMAKE_REQUIRED_INCLUDES "${Qt5Gui_INCLUDE_DIRS};${Qt5Core_INCLUDE_DIRS}")
-set(CMAKE_REQUIRED_LIBRARIES "${Qt5Gui_LIBRARIES};${Qt5Core_LIBRARIES}")
-
-check_cxx_source_compiles("
-#include <QtGui/QIcon>
-int main() {
-    QIcon icon;
-    icon.name();
-    return 0;
-}
-" HAVE_QICON_NAME)
-if (NOT HAVE_QICON_NAME)
-    message(STATUS "QIcon::name() does not exist, DBusMenuExporter will not export icon names by itself")
-endif()
-configure_file(dbusmenu_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/dbusmenu_config.h @ONLY)
 
 set(dbusmenu_qt_SRCS
     dbusmenu_p.cpp
