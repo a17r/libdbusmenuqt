@@ -37,8 +37,8 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 include(ECMQtDeclareLoggingCategory)
+include(CheckCXXCompilerFlag)
 
-include (CheckCXXCompilerFlag)
 # Check some compiler flags
 check_cxx_compiler_flag(-fvisibility=hidden __DBUSMENU_HAVE_GCC_VISIBILITY)
 if (__DBUSMENU_HAVE_GCC_VISIBILITY AND NOT WIN32)
@@ -54,6 +54,11 @@ check_cxx_compiler_flag(-std=c++11 __DBUSMENU_HAVE_CXX11)
 if (__DBUSMENU_HAVE_CXX11)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif (__DBUSMENU_HAVE_CXX11)
+
+check_cxx_compiler_flag(-Wall __DBUSMENU_HAVE_W_ALL)
+if (__DBUSMENU_HAVE_W_ALL)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+endif (__DBUSMENU_HAVE_W_ALL)
 
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_INCLUDEDIR}/dbusmenu-${QT_SUFFIX}")
 
