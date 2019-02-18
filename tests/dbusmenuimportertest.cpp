@@ -329,7 +329,7 @@ void DBusMenuImporterTest::testDisabledItem()
     QVERIFY(outputAction->isEnabled());
 
     // Disable the action
-    DMDEBUG << "Disabling";
+    qDebug(DBUSMENUQT) << "Disabling";
     action->setEnabled(false);
     QTest::qWait(500);
     QVERIFY(!outputAction->isEnabled());

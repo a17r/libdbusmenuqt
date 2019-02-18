@@ -392,7 +392,7 @@ void DBusMenuImporter::slotGetLayoutFinished(QDBusPendingCallWatcher *watcher)
     }
 
     #ifdef BENCHMARK
-    DMDEBUG << "- items received:" << sChrono.elapsed() << "ms";
+    qDebug(DBUSMENUQT) << "- items received:" << sChrono.elapsed() << "ms";
     #endif
     DBusMenuLayoutItem rootItem = reply.argumentAt<1>();
 

@@ -159,7 +159,7 @@ void DBusMenuExporterPrivate::fillLayoutItem(DBusMenuLayoutItem *item, QMenu *me
         Q_FOREACH(QAction *action, menu->actions()) {
             int actionId = m_idForAction.value(action, -1);
             if (actionId == -1) {
-                DMWARNING << "No id for action";
+                qCWarning(DBUSMENUQT) << "No id for action";
                 continue;
             }
 
@@ -184,7 +184,7 @@ void DBusMenuExporterPrivate::addAction(QAction *action, int parentId)
 {
     int id = m_idForAction.value(action, -1);
     if (id != -1) {
-        DMWARNING << "Already tracking action" << action->text() << "under id" << id;
+        qCWarning(DBUSMENUQT) << "Already tracking action" << action->text() << "under id" << id;
         return;
     }
     QVariantMap map = propertiesForAction(action);

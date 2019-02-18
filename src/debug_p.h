@@ -21,27 +21,15 @@
 #ifndef DEBUG_P_H
 #define DEBUG_P_H
 
-#include <QDebug>
-
-#define _DMBLUE  "\033[34m"
-#define _DMRED   "\033[31m"
-#define _DMRESET "\033[0m"
-#define _DMTRACE(level, color) (level().nospace() << color << __PRETTY_FUNCTION__ << _DMRESET ":").space()
-
-// Simple macros to get KDebug like support
-#define DMDEBUG   _DMTRACE(qDebug, _DMBLUE)
-#define DMWARNING _DMTRACE(qWarning, _DMRED)
-
-// Log a variable name and value
-#define DMVAR(var) DMDEBUG << #var ":" << var
+#include <debug.h>
 
 #define DMRETURN_IF_FAIL(cond) if (!(cond)) { \
-    DMWARNING << "Condition failed: " #cond; \
+    qCWarning(DBUSMENUQT) << "Condition failed: " #cond; \
     return; \
 }
 
 #define DMRETURN_VALUE_IF_FAIL(cond, value) if (!(cond)) { \
-    DMWARNING << "Condition failed: " #cond; \
+    qCWarning(DBUSMENUQT) << "Condition failed: " #cond; \
     return (value); \
 }
 
