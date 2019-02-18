@@ -76,7 +76,7 @@ configure_package_config_file(
     dbusmenu-qt-config.cmake.in
     ${CMAKE_BINARY_DIR}/dbusmenu-${QT_SUFFIX}-config.cmake
     INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/dbusmenu-${QT_SUFFIX}
-    PATH_VARS INCLUDE_INSTALL_DIR
+    PATH_VARS INCLUDE_INSTALL_DIR KDE_INSTALL_DBUSINTERFACEDIR
     )
 
 write_basic_package_version_file(

@@ -71,3 +71,5 @@ install(DIRECTORY .
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/dbusmenu_version.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/dbusmenu-${QT_SUFFIX}
     )
+
+install(FILES com.canonical.dbusmenu.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR})
