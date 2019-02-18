@@ -26,10 +26,10 @@
 #include "dbusmenutypes_p.h"
 
 // Qt
-#include <QtCore/QHash>
-#include <QtCore/QMap>
-#include <QtCore/QSet>
-#include <QtCore/QVariant>
+#include <QHash>
+#include <QMap>
+#include <QSet>
+#include <QVariant>
 
 class QMenu;
 

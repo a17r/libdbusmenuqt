@@ -22,8 +22,8 @@
 #define DBUSMENUEXPORTER_H
 
 // Qt
-#include <QtCore/QObject>
-#include <QtDBus/QDBusConnection>
+#include <QObject>
+#include <QDBusConnection>
 
 // Local
 #include <dbusmenu_export.h>

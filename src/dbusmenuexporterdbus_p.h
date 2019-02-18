@@ -25,10 +25,10 @@
 #include <dbusmenutypes_p.h>
 
 // Qt
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
-#include <QtDBus/QDBusAbstractAdaptor>
-#include <QtDBus/QDBusVariant>
+#include <QObject>
+#include <QVariant>
+#include <QDBusAbstractAdaptor>
+#include <QDBusVariant>
 
 class DBusMenuExporter;
 

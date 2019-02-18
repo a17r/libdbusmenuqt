@@ -26,7 +26,7 @@
 #include <dbusmenu_version.h>
 
 // Qt
-#include <QtCore/QtGlobal>
+#include <QtGlobal>
 
 #ifdef dbusmenu_qt_EXPORTS
 #define DBUSMENU_EXPORT Q_DECL_EXPORT
