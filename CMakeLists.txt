@@ -46,6 +46,7 @@ include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(CMakePackageConfigHelpers)
 include(ECMQtDeclareLoggingCategory)
+include(FeatureSummary)
 
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_INCLUDEDIR}/dbusmenu-${QT_SUFFIX}")
 
@@ -91,3 +92,5 @@ install(FILES
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/dbusmenu-${QT_SUFFIX}"
     COMPONENT Devel
     )
+
+feature_summary (WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
