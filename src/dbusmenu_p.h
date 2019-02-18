@@ -39,10 +39,10 @@ class DBusMenu : public QObject
     Q_OBJECT
 public:
     DBusMenu(QMenu *menu, DBusMenuExporter *exporter, int parentId);
-    virtual ~DBusMenu();
+    ~DBusMenu() override;
 
 protected:
-    virtual bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private Q_SLOTS:
     void deleteMe();
