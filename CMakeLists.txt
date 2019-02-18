@@ -41,7 +41,7 @@ endif()
 
 set(KDE_SKIP_RPATH_SETTINGS ON)
 
-include(GNUInstallDirs)
+include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(CMakePackageConfigHelpers)
