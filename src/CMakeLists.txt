@@ -65,7 +65,6 @@ install(EXPORT dbusmenu-${QT_SUFFIX}-targets
 install(DIRECTORY .
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/dbusmenu-${QT_SUFFIX}
     FILES_MATCHING PATTERN "*.h"
-    PATTERN "*_p.h" EXCLUDE
     )
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/dbusmenu_version.h
